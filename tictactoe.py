@@ -17,7 +17,6 @@ def initial_state():
             [EMPTY, EMPTY, EMPTY],
             [EMPTY, EMPTY, EMPTY]]
 
-
 def player(board):
     """
     Returns player who has the next turn on a board.
@@ -30,7 +29,7 @@ def player(board):
 
     if num_x == 0 and num_o == 0:
         return "X"
-    elif num_x>num_o:
+    elif num_x > num_o:
         return "O"
     else:
         return "X"
@@ -48,7 +47,6 @@ def actions(board):
 
     return actions          
 
-
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
@@ -58,7 +56,7 @@ def result(board, action):
     if action not in actions(board):
         raise Exception(f"{action} not valid, possible actions are: {actions(board)}")
     else:
-        result_board[action[0]][action[1]]=player(board)
+        result_board[action[0]][action[1]] = player(board)
 
     return result_board
 
@@ -68,12 +66,12 @@ def winner(board):
     """
     # Check rows
     for i in range(len(board)):
-            if board[i][0]==board[i][1]==board[i][2] and board[i][0] != None:
+            if board[i][0] == board[i][1] == board[i][2] and board[i][0] != None:
                 return board[i][0]
             
     # Check columns
     for j in range(len(board)):
-            if board[0][j]==board[1][j]==board[2][j] and board[0][j] != None:
+            if board[0][j] == board[1][j] == board[2][j] and board[0][j] != None:
                 return board[0][j] 
                 
     # Check diagonal 
@@ -85,7 +83,6 @@ def winner(board):
     # If none of the above return a value, there is no winner 
     return None 
     
-
 def terminal(board):
     """
     Returns True if game is over, False otherwise.
@@ -97,7 +94,6 @@ def terminal(board):
                 return True
     # if none of the avoe return a value, game is not terminated
     return False    
-
 
 def utility(board):
     """
@@ -114,7 +110,9 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-
+    if terminal(board):
+        return None  # If the game is over, no move is possible
+   
     current_player = player(board)
 
     if current_player == X:
@@ -123,7 +121,6 @@ def minimax(board):
     else:
         print(f"Min Value {min_value(board)[0]} resulting in {result(board,min_value(board)[1])}")
         return min_value(board)[1]
-
 
 def min_value(board):
         if terminal(board):
@@ -148,8 +145,4 @@ def max_value(board):
                 v = value
                 best_action = action
         return v, best_action
-
-
-            
-                
-        
+             
